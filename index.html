@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahil Kadbe — Full Stack Java Developer</title>
+<meta name="description" content="Sahil Kadbe — Full Stack Java Developer specializing in Spring Boot, Angular, microservices, and AI-driven systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;
+    --paper-dim:#F2F0E9;
+    --ink:#1A1D1E;
+    --ink-soft:#4A4D4E;
+    --indigo:#2B3A67;
+    --indigo-soft:#5A6A9A;
+    --sage:#6B7A6B;
+    --border:#E3E1DA;
+    --border-strong:#C9C6BB;
+    --good:#3C7A5A;
+
+    --serif:"Source Serif 4", Georgia, serif;
+    --sans:"Inter", -apple-system, sans-serif;
+    --mono:"JetBrains Mono", "SF Mono", monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--indigo);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- Status header ---------- */
+  .status-bar{
+    border-bottom:1px solid var(--border);
+    background:var(--paper);
+    position:sticky;
+    top:0;
+    z-index:50;
+    backdrop-filter:blur(6px);
+    background:rgba(250,250,247,0.92);
+  }
+  .status-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 0;
+    font-family:var(--mono);
+    font-size:12.5px;
+  }
+  .status-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--ink-soft);
+  }
+  .dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--good);
+    box-shadow:0 0 0 3px rgba(60,122,90,0.15);
+    flex-shrink:0;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.55; }
+  }
+  .status-nav{
+    display:flex;
+    gap:18px;
+  }
+  .status-nav a{
+    color:var(--ink-soft);
+    transition:color 0.15s ease;
+  }
+  .status-nav a:hover{ color:var(--indigo); }
+
+  @media (max-width:600px){
+    .status-nav{ display:none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:72px 0 56px;
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--sage);
+    letter-spacing:0.04em;
+    margin-bottom:18px;
+    display:block;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(34px, 6vw, 50px);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--indigo);
+  }
+  .hero p.lede{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:560px;
+    line-height:1.65;
+    margin-bottom:30px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:11px 20px;
+    border-radius:3px;
+    border:1px solid var(--ink);
+    transition:all 0.15s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .btn-primary:hover{
+    background:var(--indigo);
+    border-color:var(--indigo);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border-color:var(--border-strong);
+  }
+  .btn-ghost:hover{
+    border-color:var(--ink);
+    background:var(--paper-dim);
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section.block{
+    padding:52px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .section-label{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--sage);
+    letter-spacing:0.03em;
+    margin-bottom:28px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+  h2.section-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:26px;
+    margin-bottom:8px;
+    color:var(--ink);
+  }
+
+  /* ---------- About ---------- */
+  .about-text{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:620px;
+    line-height:1.75;
+  }
+  .about-text strong{
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-groups{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px 32px;
+    margin-top:30px;
+  }
+  @media (max-width:600px){
+    .skill-groups{ grid-template-columns:1fr; }
+  }
+  .skill-group h3{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--sage);
+    letter-spacing:0.03em;
+    margin-bottom:10px;
+    text-transform:uppercase;
+  }
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+  }
+  .tag{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:5px 10px;
+    border:1px solid var(--border-strong);
+    border-radius:3px;
+    color:var(--ink-soft);
+    background:var(--paper-dim);
+  }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{
+    margin-top:8px;
+  }
+  .job{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:24px;
+    padding:26px 0;
+    border-top:1px solid var(--border);
+  }
+  .job:first-child{ border-top:none; padding-top:4px; }
+  @media (max-width:600px){
+    .job{ grid-template-columns:1fr; gap:6px; }
+  }
+  .job-period{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--sage);
+    padding-top:3px;
+  }
+  .job-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:18px;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .job-company{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--indigo);
+    margin-bottom:12px;
+    display:block;
+  }
+  .job ul{
+    list-style:none;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.7;
+  }
+  .job ul li{
+    padding-left:18px;
+    position:relative;
+    margin-bottom:6px;
+  }
+  .job ul li::before{
+    content:"→";
+    position:absolute;
+    left:0;
+    color:var(--border-strong);
+    font-size:13px;
+  }
+
+  /* ---------- Projects ---------- */
+  .project-card{
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:24px;
+    margin-bottom:16px;
+    background:var(--paper-dim);
+    transition:border-color 0.15s ease;
+  }
+  .project-card:hover{
+    border-color:var(--border-strong);
+  }
+  .project-card h3{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:19px;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+  .project-card ul{
+    list-style:none;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .project-card ul li{
+    padding-left:18px;
+    position:relative;
+    margin-bottom:6px;
+  }
+  .project-card ul li::before{
+    content:"·";
+    position:absolute;
+    left:2px;
+    color:var(--indigo-soft);
+    font-weight:700;
+  }
+  .project-stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+  }
+
+  /* ---------- Blog / writing ---------- */
+  .blog-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:16px 0;
+    border-top:1px solid var(--border);
+    gap:16px;
+  }
+  .blog-row:first-child{ border-top:none; }
+  .blog-row a{
+    font-size:15.5px;
+    color:var(--ink);
+    transition:color 0.15s ease;
+  }
+  .blog-row a:hover{ color:var(--indigo); }
+  .blog-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--sage);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .blog-empty{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    font-style:normal;
+    padding:8px 0;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-block{
+    padding:60px 0 64px;
+  }
+  .contact-block h2.section-title{
+    font-size:32px;
+  }
+  .contact-list{
+    margin-top:26px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .contact-list a{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    font-size:16px;
+    color:var(--ink);
+    width:fit-content;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.15s ease, color 0.15s ease;
+    padding-bottom:2px;
+  }
+  .contact-list a:hover{
+    color:var(--indigo);
+    border-color:var(--indigo);
+  }
+  .contact-list .clabel{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--sage);
+    width:64px;
+    flex-shrink:0;
+  }
+
+  footer{
+    padding:24px 0 40px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--border-strong);
+    text-align:center;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .dot{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="status-bar">
+  <div class="wrap status-inner">
+    <div class="status-left">
+      <span class="dot" aria-hidden="true"></span>
+      <span>status: open to opportunities</span>
+    </div>
+    <nav class="status-nav">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#writing">writing</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <span class="eyebrow">// full stack java developer</span>
+  <h1>Sahil Kadbe builds backend<br>systems that <em>hold up</em> under<br>real-world load.</h1>
+  <p class="lede">5+ years shipping production Java &amp; Spring Boot systems — REST APIs, microservices, secure auth, and Angular frontends — for enterprise teams. Lately, building AI-driven systems with RAG and Spring AI.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#contact">Get in touch</a>
+    <a class="btn btn-ghost" href="resume.pdf" download>Download résumé ↓</a>
+  </div>
+</header>
+
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="section-label">01 / about</div>
+    <h2 class="section-title">Professional summary</h2>
+    <p class="about-text" style="margin-top:18px;">
+      <strong>Full Stack Java Developer with 5+ years of experience</strong> building scalable, secure web applications using Java, Spring Boot, and Angular. Strong expertise in REST API development, microservices architecture, and performance optimization. Recently worked on AI-driven systems including Retrieval-Augmented Generation (RAG) and Spring AI, with hands-on exposure to AWS and cloud-based deployments.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="section-label">02 / stack</div>
+    <h2 class="section-title">Technical skills</h2>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="tag-row">
+          <span class="tag">Java</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Frameworks</h3>
+        <div class="tag-row">
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Spring MVC</span>
+          <span class="tag">Hibernate</span>
+          <span class="tag">Angular</span>
+          <span class="tag">AngularJS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Backend</h3>
+        <div class="tag-row">
+          <span class="tag">REST APIs</span>
+          <span class="tag">Microservices</span>
+          <span class="tag">Spring Security</span>
+          <span class="tag">JWT Auth</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Databases</h3>
+        <div class="tag-row">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools</h3>
+        <div class="tag-row">
+          <span class="tag">Git</span>
+          <span class="tag">Maven</span>
+          <span class="tag">JUnit</span>
+          <span class="tag">Mockito</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Cloud</h3>
+        <div class="tag-row">
+          <span class="tag">AWS EC2</span>
+          <span class="tag">Cloud Deployment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="section-label">03 / timeline</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+
+      <div class="job">
+        <div class="job-period">Jul 2024 — Present</div>
+        <div>
+          <div class="job-title">Senior Associate</div>
+          <span class="job-company">Infosys Limited</span>
+          <ul>
+            <li>Designed and developed scalable microservices using Spring Boot and REST APIs.</li>
+            <li>Implemented secure authentication using Spring Security and JWT.</li>
+            <li>Built responsive Angular applications with optimized performance (lazy loading, OnPush).</li>
+            <li>Integrated backend services with PostgreSQL using JPA/Hibernate.</li>
+            <li>Improved application performance and reduced response latency through optimized queries.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-period">Nov 2023 — Jul 2024</div>
+        <div>
+          <div class="job-title">Java Full Stack Developer</div>
+          <span class="job-company">Seligent Consulting Pvt. Ltd.</span>
+          <ul>
+            <li>Developed Java-based adapters integrating MBSE tools via APIs.</li>
+            <li>Built backend modules and explored system-level integrations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-period">Apr 2021 — Nov 2023</div>
+        <div>
+          <div class="job-title">Java Full Stack Developer</div>
+          <span class="job-company">Tata Consultancy Services</span>
+          <ul>
+            <li>Developed enterprise applications using Spring Boot, Angular, and microservices architecture.</li>
+            <li>Designed and consumed RESTful APIs enabling seamless frontend-backend communication.</li>
+            <li>Deployed applications on AWS (EC2) ensuring availability and reliability.</li>
+            <li>Improved database performance using Hibernate and optimized queries.</li>
+            <li>Participated in Agile development, code reviews, and unit testing.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="block" id="projects">
+  <div class="wrap">
+    <div class="section-label">04 / projects</div>
+    <h2 class="section-title">Selected work</h2>
+
+    <div class="project-card" style="margin-top:24px;">
+      <h3>RAG-based Document AI System</h3>
+      <ul>
+        <li>Built a Retrieval-Augmented Generation (RAG) system using vector embeddings and semantic search.</li>
+        <li>Processed PDF documents and enabled contextual AI-based responses.</li>
+        <li>Integrated OpenAI embeddings and optimized chunking and retrieval strategies.</li>
+        <li>Used vector database concepts to enhance search accuracy and response relevance.</li>
+      </ul>
+      <div class="project-stack">
+        <span class="tag">RAG</span>
+        <span class="tag">Vector Embeddings</span>
+        <span class="tag">OpenAI</span>
+        <span class="tag">Semantic Search</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="block" id="writing">
+  <div class="wrap">
+    <div class="section-label">05 / writing</div>
+    <h2 class="section-title">Blog &amp; notes</h2>
+    <div style="margin-top:20px;">
+      <p class="blog-empty">No posts published yet — check back soon. Working on write-ups about Spring Boot internals and RAG pipeline design.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact-block wrap" id="contact">
+  <div class="section-label">06 / contact</div>
+  <h2 class="section-title">Let's talk</h2>
+  <p class="about-text" style="margin-top:12px;">Open to full-time roles and interesting backend/full-stack problems. Reach out directly — I read everything myself.</p>
+  <div class="contact-list">
+    <a href="mailto:kadbe.sahil@gmail.com">
+      <span class="clabel">email</span>
+      kadbe.sahil@gmail.com
+    </a>
+    <a href="tel:+919284295939">
+      <span class="clabel">phone</span>
+      +91 92842 95939
+    </a>
+    <a href="https://linkedin.com/in/sahil-kadbe" target="_blank" rel="noopener">
+      <span class="clabel">linkedin</span>
+      linkedin.com/in/sahil-kadbe
+    </a>
+  </div>
+</section>
+
+<footer>
+  built &amp; deployed by sahil kadbe · {{YEAR}}
+</footer>
+
+<script>
+  document.querySelector('footer').innerHTML = document.querySelector('footer').innerHTML.replace('{{YEAR}}', new Date().getFullYear());
+</script>
+
+</body>
+</html>
